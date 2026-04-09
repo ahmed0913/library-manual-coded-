@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Library System{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>📊 Admin Dashboard</h1>
+</div>
+
+<!-- ======== Statistics Cards ======== -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon">📚</div>
+        <div class="stat-info">
+            <h3>{{ total_books }}</h3>
+            <p>Total Books</p>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-info">
+            <h3>{{ total_users }}</h3>
+            <p>Total Users</p>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">🏷️</div>
+        <div class="stat-info">
+            <h3>{{ total_categories }}</h3>
+            <p>Categories</p>
+        </div>
+    </div>
+</div>
+
+<!-- ======== Recent Activity Logs ======== -->
+<div class="section">
+    <h2>📋 Recent Activity</h2>
+
+    {% if recent_logs %}
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>User</th>
+                    <th>Action</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in recent_logs %}
+                <tr>
+                    <td>{{ log.timestamp[:16] if log.timestamp else 'Unknown' }}</td>
+                    <td>{{ log.username or 'Unknown' }}</td>
+                    <td>
+                        <span class="action-badge action-{{ log.action_type }}">
+                            {{ log.action_type }}
+                        </span>
+                    </td>
+                    <td>{{ log.description }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-muted">No activity logs yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

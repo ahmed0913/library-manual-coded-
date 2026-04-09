@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Activity Logs - Library System{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>📋 Activity Logs</h1>
+</div>
+
+{% if logs %}
+<div class="table-container">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Time</th>
+                <th>User</th>
+                <th>Action</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for log in logs %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ log.timestamp[:19] if log.timestamp else 'Unknown' }}</td>
+                <td>{{ log.username or 'Unknown' }}</td>
+                <td>
+                    <span class="action-badge action-{{ log.action_type }}">
+                        {{ log.action_type }}
+                    </span>
+                </td>
+                <td>{{ log.description }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="empty-state">
+    <span class="empty-icon">📋</span>
+    <h2>No activity logs yet</h2>
+    <p>Activity will appear here as users interact with the system.</p>
+</div>
+{% endif %}
+{% endblock %}

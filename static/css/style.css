@@ -1,0 +1,865 @@
+/* ==========================================================================
+   Library Management System - Stylesheet
+   Author: Ahmed Yousif
+   Description: Dark + warm color theme. Simple and clean for readability.
+   ========================================================================== */
+
+/* ---- CSS Variables (Colors & Spacing) ---- */
+:root {
+    --bg-main: #121212;
+    --bg-card: #1e1e1e;
+    --bg-input: #2d2d2d;
+    --text-main: #e0e0e0;
+    --text-muted: #9e9e9e;
+
+    /* Warm accent colors */
+    --accent-primary: #d97706;   /* Warm Amber */
+    --accent-hover: #f59e0b;     /* Lighter amber on hover */
+    --accent-secondary: #059669; /* Emerald Green for success */
+    --accent-danger: #dc2626;    /* Red for delete/errors */
+    --accent-info: #3b82f6;      /* Blue for info messages */
+
+    --border-color: #333333;
+
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ---- Reset & Base Styles ---- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+a {
+    color: var(--accent-primary);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: var(--accent-hover);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    flex-grow: 1;
+    width: 100%;
+}
+
+/* ---- Typography ---- */
+h1, h2, h3 {
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.text-muted {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* ---- Section ---- */
+.section {
+    margin-top: 2rem;
+}
+
+.section h2 {
+    margin-bottom: 1rem;
+}
+
+/* ==================================================================
+   NAVIGATION BAR
+   ================================================================== */
+.navbar {
+    background-color: var(--bg-card);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    position: relative;   /* needed for mobile toggle positioning */
+}
+
+.nav-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-brand a {
+    color: var(--text-main);
+}
+
+.nav-brand a:hover {
+    color: var(--accent-primary);
+}
+
+.nav-links {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.nav-links a {
+    color: var(--text-muted);
+    font-weight: 500;
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 0.9rem;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--accent-primary);
+    background-color: rgba(217, 119, 6, 0.1);
+}
+
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-main);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* ==================================================================
+   BUTTONS
+   ================================================================== */
+.btn {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.1s;
+    font-family: inherit;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background-color: var(--accent-primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-hover);
+    color: white;
+}
+
+.btn-secondary {
+    background-color: var(--bg-input);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--border-color);
+    color: var(--text-main);
+}
+
+.btn-delete {
+    background-color: rgba(220, 38, 38, 0.1);
+    color: var(--accent-danger);
+    border: 1px solid var(--accent-danger);
+}
+
+.btn-delete:hover {
+    background-color: var(--accent-danger);
+    color: white;
+}
+
+.btn-edit {
+    background-color: rgba(5, 150, 105, 0.1);
+    color: var(--accent-secondary);
+    border: 1px solid var(--accent-secondary);
+}
+
+.btn-edit:hover {
+    background-color: var(--accent-secondary);
+    color: white;
+}
+
+.btn-logout {
+    background-color: rgba(220, 38, 38, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(220, 38, 38, 0.3);
+}
+
+.btn-logout:hover {
+    background-color: var(--accent-danger);
+    color: white;
+}
+
+.btn-login {
+    background-color: var(--accent-primary);
+    color: white;
+}
+
+.btn-login:hover {
+    background-color: var(--accent-hover);
+    color: white;
+}
+
+.btn-register {
+    background-color: var(--bg-input);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+}
+
+.btn-register:hover {
+    background-color: var(--border-color);
+    color: var(--text-main);
+}
+
+.btn-sm {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.85rem;
+}
+
+.btn-full {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+}
+
+/* ==================================================================
+   FORMS & INPUTS
+   ================================================================== */
+.form-container {
+    background-color: var(--bg-card);
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 650px;
+    margin: 0 auto;
+    border: 1px solid var(--border-color);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="file"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: border-color 0.3s;
+}
+
+input[type="file"] {
+    padding: 0.5rem;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+}
+
+textarea {
+    resize: vertical;
+}
+
+.form-hint {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* Inline form (used in categories page) */
+.form-inline {
+    max-width: 100%;
+    margin-bottom: 2rem;
+}
+
+.inline-form {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.inline-form input[type="text"] {
+    flex: 1;
+}
+
+/* ---- Image preview styling ---- */
+.image-preview {
+    margin-top: 1rem;
+    max-width: 200px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.image-preview img,
+.current-image img {
+    max-width: 200px;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    margin-top: 0.5rem;
+}
+
+.current-image {
+    margin-bottom: 1rem;
+}
+
+.current-image p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+}
+
+/* ==================================================================
+   AUTH PAGES (Login / Register)
+   ================================================================== */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+}
+
+.auth-card {
+    background-color: var(--bg-card);
+    padding: 2.5rem;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    border: 1px solid var(--border-color);
+}
+
+.auth-card h1 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent-primary);
+}
+
+.auth-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+.auth-link {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* ==================================================================
+   SEARCH BAR
+   ================================================================== */
+.search-bar {
+    background-color: var(--bg-card);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.search-form {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+}
+
+.search-select {
+    width: auto;
+    min-width: 120px;
+}
+
+.search-input {
+    flex-grow: 1;
+}
+
+.search-info {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: rgba(217, 119, 6, 0.1);
+    border-left: 4px solid var(--accent-primary);
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+/* ==================================================================
+   BOOKS GRID
+   ================================================================== */
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.book-card {
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    border-color: var(--accent-primary);
+}
+
+.book-image {
+    height: 220px;
+    background-color: var(--bg-input);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.book-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.book-placeholder {
+    font-size: 4rem;
+    opacity: 0.4;
+}
+
+.book-info {
+    padding: 1.2rem 1.5rem;
+    flex-grow: 1;
+}
+
+.book-title {
+    font-size: 1.15rem;
+    margin-bottom: 0.3rem;
+    color: var(--text-main);
+}
+
+.book-author {
+    color: var(--accent-primary);
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+}
+
+.book-description {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
+}
+
+.book-price {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--accent-secondary);
+}
+
+.book-actions {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 0.8rem;
+}
+
+.book-actions form {
+    flex: 1;
+}
+
+.book-actions .btn {
+    width: 100%;
+}
+
+/* ==================================================================
+   BADGES & TAGS
+   ================================================================== */
+.role-badge {
+    padding: 0.15rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.role-admin {
+    background-color: rgba(217, 119, 6, 0.2);
+    color: var(--accent-primary);
+    border: 1px solid var(--accent-primary);
+}
+
+.role-user {
+    background-color: rgba(5, 150, 105, 0.2);
+    color: var(--accent-secondary);
+    border: 1px solid var(--accent-secondary);
+}
+
+.category-badge {
+    display: inline-block;
+    padding: 0.2rem 0.7rem;
+    background-color: rgba(217, 119, 6, 0.1);
+    border: 1px solid rgba(217, 119, 6, 0.3);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: var(--accent-primary);
+    margin-bottom: 0.5rem;
+}
+
+.action-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+/* Color-coded action badges */
+.action-login     { background: rgba(5,150,105,0.15); color: #34d399; }
+.action-logout    { background: rgba(217,119,6,0.15); color: #fbbf24; }
+.action-add_book  { background: rgba(59,130,246,0.15); color: #60a5fa; }
+.action-edit_book { background: rgba(139,92,246,0.15); color: #a78bfa; }
+.action-delete_book { background: rgba(220,38,38,0.15); color: #f87171; }
+
+/* ==================================================================
+   DASHBOARD & STATS
+   ================================================================== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background-color: var(--bg-card);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    background-color: var(--bg-input);
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.stat-info h3 {
+    font-size: 2rem;
+    margin-bottom: 0;
+    color: var(--accent-primary);
+    line-height: 1;
+}
+
+.stat-info p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-top: 0.3rem;
+}
+
+/* ==================================================================
+   DATA TABLES
+   ================================================================== */
+.table-container {
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+    padding: 0.9rem 1.2rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9rem;
+}
+
+.data-table th {
+    background-color: var(--bg-input);
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+.data-table tr:last-child td {
+    border-bottom: none;
+}
+
+.data-table tr:hover {
+    background-color: rgba(255,255,255,0.02);
+}
+
+/* ==================================================================
+   FLASH MESSAGES
+   ================================================================== */
+.flash-container {
+    max-width: 1200px;
+    margin: 1rem auto 0;
+    padding: 0 2rem;
+}
+
+.flash-message {
+    padding: 1rem 1.2rem;
+    border-radius: 8px;
+    margin-bottom: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: slideDown 0.3s ease-out;
+    font-size: 0.95rem;
+}
+
+.flash-success {
+    background-color: rgba(5, 150, 105, 0.15);
+    border-left: 4px solid var(--accent-secondary);
+    color: #34d399;
+}
+
+.flash-danger {
+    background-color: rgba(220, 38, 38, 0.15);
+    border-left: 4px solid var(--accent-danger);
+    color: #f87171;
+}
+
+.flash-warning {
+    background-color: rgba(217, 119, 6, 0.15);
+    border-left: 4px solid var(--accent-primary);
+    color: #fbbf24;
+}
+
+.flash-info {
+    background-color: rgba(59, 130, 246, 0.15);
+    border-left: 4px solid var(--accent-info);
+    color: #60a5fa;
+}
+
+.flash-close {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 1.3rem;
+    cursor: pointer;
+    opacity: 0.7;
+    padding: 0 0.3rem;
+}
+
+.flash-close:hover {
+    opacity: 1;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-15px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* ==================================================================
+   EMPTY STATES
+   ================================================================== */
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    border: 1px dashed var(--border-color);
+}
+
+.empty-icon {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.empty-state h2 {
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* ==================================================================
+   FOOTER
+   ================================================================== */
+.footer {
+    text-align: center;
+    padding: 1.5rem 2rem;
+    margin-top: auto;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* ==================================================================
+   RESPONSIVE DESIGN (Mobile)
+   ================================================================== */
+@media (max-width: 768px) {
+    .navbar {
+        flex-wrap: wrap;
+        padding: 1rem;
+    }
+
+    .nav-toggle {
+        display: block;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+
+    .nav-links,
+    .nav-user {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 1rem;
+        gap: 0.3rem;
+    }
+
+    .nav-links.active,
+    .nav-user.active {
+        display: flex;
+    }
+
+    .nav-links a {
+        padding: 0.6rem;
+    }
+
+    .page-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .search-form {
+        flex-direction: column;
+    }
+
+    .search-select {
+        width: 100%;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .books-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .inline-form {
+        flex-direction: column;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+
+    .flash-container {
+        padding: 0 1rem;
+    }
+}

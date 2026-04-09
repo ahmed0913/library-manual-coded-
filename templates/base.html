@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Library System{% endblock %}</title>
+
+    <!-- Google Font for clean typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Our CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <!-- ======== Navigation Bar ======== -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="nav-icon">📚</span>
+            <a href="{{ url_for('home') }}">Library System</a>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+            {% if session.get('user_id') %}
+                <a href="{{ url_for('home') }}" class="{% if request.endpoint == 'home' %}active{% endif %}">
+                    📖 Books
+                </a>
+
+                {# Only show admin links if user is admin #}
+                {% if session.get('role') == 'admin' %}
+                    <a href="{{ url_for('dashboard') }}" class="{% if request.endpoint == 'dashboard' %}active{% endif %}">
+                        📊 Dashboard
+                    </a>
+                    <a href="{{ url_for('categories') }}" class="{% if request.endpoint == 'categories' %}active{% endif %}">
+                        🏷️ Categories
+                    </a>
+                    <a href="{{ url_for('users') }}" class="{% if request.endpoint == 'users' %}active{% endif %}">
+                        👥 Users
+                    </a>
+                    <a href="{{ url_for('logs') }}" class="{% if request.endpoint == 'logs' %}active{% endif %}">
+                        📋 Logs
+                    </a>
+                {% endif %}
+            {% endif %}
+        </div>
+
+        <div class="nav-user" id="navUser">
+            {% if session.get('user_id') %}
+                <span class="user-info">
+                    👤 {{ session.get('name') }}
+                    <span class="role-badge role-{{ session.get('role') }}">{{ session.get('role') }}</span>
+                </span>
+                <a href="{{ url_for('logout') }}" class="btn btn-logout">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="btn btn-login">Login</a>
+                <a href="{{ url_for('register') }}" class="btn btn-register">Register</a>
+            {% endif %}
+        </div>
+
+        <!-- Mobile hamburger menu button -->
+        <button class="nav-toggle" onclick="toggleMenu()">☰</button>
+    </nav>
+
+    <!-- ======== Flash Messages ======== -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container">
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">
+                        {{ message }}
+                        <button class="flash-close" onclick="this.parentElement.remove()">×</button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- ======== Main Content Area ======== -->
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- ======== Footer ======== -->
+    <footer class="footer">
+        <p>📚 Library Management System — By Ahmed Yousif © 2026</p>
+    </footer>
+
+    <!-- Our JavaScript file -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
