@@ -19,38 +19,39 @@ if %errorlevel% neq 0 (
 )
 
 :: Check if the virtual environment exists
+if exist "venv\Scripts\activate.bat" goto START_SERVER
+
+echo [!] First time setup detected!
+echo.
+
+echo [1/4] Creating virtual environment...
+python -m venv venv
 if not exist "venv\Scripts\activate.bat" (
-    echo [!] First time setup detected!
-    echo.
-    
-    echo [1/4] Creating virtual environment...
-    python -m venv venv
-    if not exist "venv\Scripts\activate.bat" (
-        color 0C
-        echo [ERROR] Failed to create virtual environment!
-        pause
-        exit /b
-    )
-    
-    echo [2/4] Activating virtual environment...
-    call venv\Scripts\activate.bat
-    
-    echo [3/4] Installing requirements (this might take a minute)...
-    python -m pip install --upgrade pip >nul 2>&1
-    pip install -r requirements.txt
-    if %errorlevel% neq 0 (
-        color 0C
-        echo [ERROR] Failed to install requirements!
-        pause
-        exit /b
-    )
-    
-    echo [4/4] Initializing database and creating admin user...
-    python seed.py
-) else (
-    echo [1/2] Activating virtual environment...
-    call venv\Scripts\activate.bat
+    color 0C
+    echo [ERROR] Failed to create virtual environment!
+    pause
+    exit /b
 )
+
+echo [2/4] Activating virtual environment...
+call venv\Scripts\activate.bat
+
+echo [3/4] Installing requirements ... This might take a minute ...
+python -m pip install --upgrade pip >nul 2>&1
+pip install -r requirements.txt
+if %errorlevel% neq 0 (
+    color 0C
+    echo [ERROR] Failed to install requirements!
+    pause
+    exit /b
+)
+
+echo [4/4] Initializing database and creating admin user...
+python seed.py
+
+:START_SERVER
+echo [1/2] Activating virtual environment...
+call venv\Scripts\activate.bat
 
 echo.
 echo ===================================================
