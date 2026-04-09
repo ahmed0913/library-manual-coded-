@@ -6,18 +6,23 @@ echo.
 
 :: Check if the virtual environment exists
 if not exist "venv\Scripts\activate.bat" (
-    echo [!] Virtual environment not found!
-    echo Please make sure you ran 'python -m venv venv' and installed the requirements.
-    pause
-    exit /b
+    echo [!] First time setup detected!
+    echo [1/4] Creating virtual environment...
+    python -m venv venv
+    
+    echo [2/4] Installing requirements (this might take a minute)...
+    call venv\Scripts\activate.bat
+    pip install -r requirements.txt
+    
+    echo [3/4] Initializing database and creating admin user...
+    python seed.py
+) else (
+    echo [1/2] Activating virtual environment...
+    call venv\Scripts\activate.bat
 )
 
-:: Activate the virtual environment and run the app
-echo [1/2] Activating virtual environment...
-call venv\Scripts\activate.bat
-
-echo [2/2] Starting Flask server...
 echo.
+echo [Final Step] Starting Flask server...
 echo ---------------------------------------------------
 echo The server is running! Opening your browser now...
 echo Keep this black window open. Close it when you are done.
